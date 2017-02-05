@@ -46,6 +46,9 @@ Plugin 'vim-airline/vim-airline-themes'
 "remove trailing white spaces of edited lines
 Plugin 'thirtythreeforty/lessspace.vim'
 
+"search for file recursively
+Plugin 'wincent/Command-T'
+
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
