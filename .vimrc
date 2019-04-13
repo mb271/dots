@@ -27,6 +27,9 @@ Plugin 'VundleVim/Vundle.vim'
 " different version somewhere else.
 "Plugin 'ascenator/L9', {'name': 'newL9'}
 
+" Sensible vimrc defaults
+Plugin 'tpope/vim-sensible'
+
 " YouCompleteMe plugin from https://github.com/Valloric/YouCompleteMe
 " auto complete functionality for different kinds of files
 Plugin 'Valloric/YouCompleteMe'
@@ -48,6 +51,16 @@ Plugin 'thirtythreeforty/lessspace.vim'
 
 "search for file recursively
 Plugin 'wincent/Command-T'
+
+" install vala support
+Plugin 'arrufat/vala.vim'
+
+" tagbar plugin
+Plugin 'majutsushi/tagbar'
+
+" ctags for tagbar
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-easytags'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -78,6 +91,10 @@ set smartindent
 set number
 
 set mouse=a
+
+"copy and paste over ssh using xclip
+"vmap "+y :!xclip -f -sel clip
+"map "+p :r!xclip -o -sel clip
 set clipboard=unnamedplus
 
 set hlsearch
@@ -86,6 +103,7 @@ let &colorcolumn=101
 highlight ColorColumn ctermbg=lightgrey
 
 " YCM settings
+let g:ycm_use_clangd = 0 " STL includes aren't working with clangd. Haven't found the root cause
 let g:ycm_add_preview_to_completeopt = 1 " show detailed information
 let g:ycm_autoclose_preview_window_after_insertion = 1 " auto close preview window
 
@@ -107,7 +125,7 @@ set term=screen-256color " otherwise no colors are used
 let g:airline_powerline_fonts = 1
 let g:airline_theme='bubblegum'
 
-" show trailing white spaces
+"" show trailing white spaces
 set listchars=trail:·
 set list
 
@@ -125,3 +143,13 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <Leader>z :ZoomToggle<CR>
+
+" deactivate vala source folding
+let g:vala_syntax_folding_enabled = 0
+
+set encoding=utf-8
+
+let g:lessspace_blacklist = ['markdown']
+
+
+let g:CommandTFileScanner = 'git'
