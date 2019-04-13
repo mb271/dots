@@ -91,6 +91,7 @@ set smartindent
 set number
 
 set mouse=a
+set ttymouse=xterm2 "https://superuser.com/questions/549930/cant-resize-vim-splits-inside-tmux
 
 "copy and paste over ssh using xclip
 "vmap "+y :!xclip -f -sel clip
