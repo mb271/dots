@@ -1,3 +1,5 @@
+set encoding=utf-8
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -59,8 +61,16 @@ Plugin 'arrufat/vala.vim'
 Plugin 'majutsushi/tagbar'
 
 " ctags for tagbar
-Plugin 'xolox/vim-misc'
-Plugin 'xolox/vim-easytags'
+"Plugin 'xolox/vim-misc'
+"Plugin 'xolox/vim-easytags'
+Plugin 'ludovicchabant/vim-gutentags'
+
+" instantly see markdown result
+Plugin 'euclio/vim-markdown-composer'
+
+" Kotlin plugin for Vim. Featuring: syntax highlighting, basic indentation,
+" Syntastic support
+Plugin 'udalov/kotlin-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -96,7 +106,16 @@ set ttymouse=xterm2 "https://superuser.com/questions/549930/cant-resize-vim-spli
 "copy and paste over ssh using xclip
 "vmap "+y :!xclip -f -sel clip
 "map "+p :r!xclip -o -sel clip
-set clipboard=unnamedplus
+
+" activate for normal x?
+"set clipboard=unnamedplus
+
+" copy paste with wayland
+" https://github.com/vim/vim/issues/5157
+" should work out of the box starting with v9.1.0064
+xnoremap y y:call system("wl-copy", @")<cr>
+nnoremap p :let @"=substitute(system("wl-paste --no-newline"), '<C-v><C-m>', '', 'g')<cr>p
+
 
 set hlsearch
 
@@ -109,11 +128,16 @@ let g:ycm_add_preview_to_completeopt = 1 " show detailed information
 let g:ycm_autoclose_preview_window_after_insertion = 1 " auto close preview window
 
 let g:ycm_server_log_level = 'debug'
+let g:ycm_extra_conf_globlist = ['~/Development/*']
 
 
 " switching panes/windows
 let g:tmux_navigator_no_mappings = 1
 
+" here
+" https://stackoverflow.com/questions/6778961/alt-key-shortcuts-not-working-on-gnome-terminal-with-vim
+" is a discussion why Alt-key mappings aren't working in many terminals.
+" however I was not able to get the workarounds to work
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
@@ -121,6 +145,8 @@ nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 "nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 " vim-airline settings
+" Powline fonts install via pkg-manager (?) or https://powerline.readthedocs.io/en/master/installation/linux.html#fonts-installation
+" Don't forget to restart the terminal afterwards
 set laststatus=2 " always show powerline, see :help laststatus
 set term=screen-256color " otherwise no colors are used
 let g:airline_powerline_fonts = 1
